@@ -1,0 +1,442 @@
+Clear
+New Circuit.IEEE33 basekv=12.66 pu=1.00 phases=3 bus1=1
+
+! =========================================================================
+! 1. Ð?NH NGHIA LOADSHAPES 24 GI? (Ðã hi?u chu?n kh?p B?ng 8, 9, 10)
+! =========================================================================
+! Ð? th? ph? t?i co s? (Hình 2)
+New LoadShape.LS_Comm npts=24 interval=1
+~ mult=(0.55 0.55 0.55 0.55 0.55 0.54 0.53 0.82 0.96 0.97 0.95 0.88 0.85 0.94 1.00 0.96 0.87 0.80 0.79 0.78 0.76 0.75 0.54 0.54)
+
+New LoadShape.LS_Ind npts=24 interval=1
+~ mult=(0.77 0.74 0.73 0.72 0.71 0.74 0.76 0.78 0.86 0.90 0.92 0.94 0.94 1.00 0.99 0.98 0.94 0.88 0.86 0.85 0.84 0.83 0.82 0.78)
+
+New LoadShape.LS_Res npts=24 interval=1
+~ mult=(0.89 0.83 0.79 0.76 0.74 0.73 0.65 0.58 0.66 0.67 0.69 0.73 0.72 0.68 0.67 0.66 0.68 0.77 0.85 0.98 0.99 1.00 0.98 0.97)
+
+! Ð? th? ph? t?i s?c EVCS chu?n theo Hình 3 (Ð?nh cao nh?t = 1.00 ?ng v?i 250 kW)
+New LoadShape.EV_Comm npts=24 interval=1
+~ mult=(0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.08 0.59 1.00 0.82 0.37 0.08 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00)
+
+New LoadShape.EV_Ind npts=24 interval=1
+~ mult=(0.92 0.75 0.34 0.07 0.00 0.00 0.04 0.45 0.99 0.82 0.41 0.11 0.00 0.00 0.07 0.48 1.00 0.75 0.55 0.07 0.00 0.00 0.03 0.55)
+
+New LoadShape.EV_Res npts=24 interval=1
+~ mult=(0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.10 0.63 1.00 0.95 0.77 0.42 0.07 0.00)
+
+! Ð?c tính công su?t WTDG 24h (Ðã hi?u chu?n theo LoadShape EVCS 0.0 -> 1.0 p.u.)
+New LoadShape.Wind_PU npts=24 interval=1
+~ mult=(0.045 0.042 0.040 0.038 0.036 0.035 0.033 0.032 0.036 0.042 0.048 0.052 0.056 0.060 0.062 0.060 0.057 0.054 0.052 0.050 0.048 0.047 0.046 0.045)
+
+! L?ch trình v?n hành BESS (+: Phát nhu Generator, -: S?c nhu Load)
+New LoadShape.BESS_12D_12C npts=24 interval=1
+~ mult=(0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 -0.42 -0.42 -0.42 -0.42 -0.42 -0.42 -0.42 -0.42 -0.42 -0.42 -0.42 -0.42)
+
+New LoadShape.BESS_12C_12D npts=24 interval=1
+~ mult=(-0.22 -0.22 -0.22 -0.22 -0.22 -0.22 -0.22 -0.22 -0.22 -0.22 -0.22 -0.22 0.18 0.18 0.18 0.18 0.18 0.18 0.18 0.18 0.18 0.18 0.18 0.18)
+
+New LoadShape.BESS_4D_4C_3X npts=24 interval=1
+~ mult=(0.20 0.20 0.20 0.20 -0.25 -0.25 -0.25 -0.25 0.20 0.20 0.20 0.20 -0.25 -0.25 -0.25 -0.25 0.20 0.20 0.20 0.20 -0.25 -0.25 -0.25 -0.25)
+
+! =========================================================================
+! 2. THÔNG S? ÐU?NG DÂY LU?I IEEE 33 NÚT (Ðã thêm Length=1 Units=km d? v? Plot Profile)
+! =========================================================================
+New Line.L1  Phases=3 Bus1=1  Bus2=2  R1=0.0922 X1=0.0470 Length=1 Units=km
+New Line.L2  Phases=3 Bus1=2  Bus2=3  R1=0.4930 X1=0.2511 Length=1 Units=km
+New Line.L3  Phases=3 Bus1=3  Bus2=4  R1=0.3660 X1=0.1864 Length=1 Units=km
+New Line.L4  Phases=3 Bus1=4  Bus2=5  R1=0.3811 X1=0.1941 Length=1 Units=km
+New Line.L5  Phases=3 Bus1=5  Bus2=6  R1=0.8190 X1=0.7070 Length=1 Units=km
+New Line.L6  Phases=3 Bus1=6  Bus2=7  R1=0.1872 X1=0.6188 Length=1 Units=km
+New Line.L7  Phases=3 Bus1=7  Bus2=8  R1=1.7114 X1=1.2351 Length=1 Units=km
+New Line.L8  Phases=3 Bus1=8  Bus2=9  R1=1.0300 X1=0.7400 Length=1 Units=km
+New Line.L9  Phases=3 Bus1=9  Bus2=10 R1=1.0440 X1=0.7400 Length=1 Units=km
+New Line.L10 Phases=3 Bus1=10 Bus2=11 R1=0.1966 X1=0.0650 Length=1 Units=km
+New Line.L11 Phases=3 Bus1=11 Bus2=12 R1=0.3744 X1=0.1238 Length=1 Units=km
+New Line.L12 Phases=3 Bus1=12 Bus2=13 R1=1.4680 X1=1.1550 Length=1 Units=km
+New Line.L13 Phases=3 Bus1=13 Bus2=14 R1=0.5416 X1=0.7129 Length=1 Units=km
+New Line.L14 Phases=3 Bus1=14 Bus2=15 R1=0.5910 X1=0.5260 Length=1 Units=km
+New Line.L15 Phases=3 Bus1=15 Bus2=16 R1=0.7463 X1=0.5450 Length=1 Units=km
+New Line.L16 Phases=3 Bus1=16 Bus2=17 R1=1.2890 X1=1.7210 Length=1 Units=km
+New Line.L17 Phases=3 Bus1=17 Bus2=18 R1=0.7320 X1=0.5740 Length=1 Units=km
+New Line.L18 Phases=3 Bus1=2  Bus2=19 R1=0.1640 X1=0.1565 Length=1 Units=km
+New Line.L19 Phases=3 Bus1=19 Bus2=20 R1=1.5042 X1=1.3554 Length=1 Units=km
+New Line.L20 Phases=3 Bus1=20 Bus2=21 R1=0.4095 X1=0.4784 Length=1 Units=km
+New Line.L21 Phases=3 Bus1=21 Bus2=22 R1=0.7089 X1=0.9373 Length=1 Units=km
+New Line.L22 Phases=3 Bus1=3  Bus2=23 R1=0.4512 X1=0.3083 Length=1 Units=km
+New Line.L23 Phases=3 Bus1=23 Bus2=24 R1=0.8980 X1=0.7091 Length=1 Units=km
+New Line.L24 Phases=3 Bus1=24 Bus2=25 R1=0.8960 X1=0.7011 Length=1 Units=km
+New Line.L25 Phases=3 Bus1=6  Bus2=26 R1=0.2030 X1=0.1034 Length=1 Units=km
+New Line.L26 Phases=3 Bus1=26 Bus2=27 R1=0.2842 X1=0.1447 Length=1 Units=km
+New Line.L27 Phases=3 Bus1=27 Bus2=28 R1=1.0590 X1=0.9337 Length=1 Units=km
+New Line.L28 Phases=3 Bus1=28 Bus2=29 R1=0.8042 X1=0.7006 Length=1 Units=km
+New Line.L29 Phases=3 Bus1=29 Bus2=30 R1=0.5075 X1=0.2585 Length=1 Units=km
+New Line.L30 Phases=3 Bus1=30 Bus2=31 R1=0.9744 X1=0.9630 Length=1 Units=km
+New Line.L31 Phases=3 Bus1=31 Bus2=32 R1=0.3105 X1=0.3619 Length=1 Units=km
+New Line.L32 Phases=3 Bus1=32 Bus2=33 R1=0.3410 X1=0.5302 Length=1 Units=km
+! =========================================================================
+! 3. PH? T?I G?C PHÂN LO?I THEO VÙNG (Hình 1: 3.715 MW, 2.3 MVAR)
+! =========================================================================
+! --- Commercial Buses (2 -> 18) ---
+New Load.Load2  Bus1=2  Phases=3 kV=12.66 kW=100 kVAR=60  Model=1 daily=LS_Comm
+New Load.Load3  Bus1=3  Phases=3 kV=12.66 kW=90  kVAR=40  Model=1 daily=LS_Comm
+New Load.Load4  Bus1=4  Phases=3 kV=12.66 kW=120 kVAR=80  Model=1 daily=LS_Comm
+New Load.Load5  Bus1=5  Phases=3 kV=12.66 kW=60  kVAR=30  Model=1 daily=LS_Comm
+New Load.Load6  Bus1=6  Phases=3 kV=12.66 kW=60  kVAR=20  Model=1 daily=LS_Comm
+New Load.Load7  Bus1=7  Phases=3 kV=12.66 kW=200 kVAR=100 Model=1 daily=LS_Comm
+New Load.Load8  Bus1=8  Phases=3 kV=12.66 kW=200 kVAR=100 Model=1 daily=LS_Comm
+New Load.Load9  Bus1=9  Phases=3 kV=12.66 kW=60  kVAR=20  Model=1 daily=LS_Comm
+New Load.Load10 Bus1=10 Phases=3 kV=12.66 kW=60  kVAR=20  Model=1 daily=LS_Comm
+New Load.Load11 Bus1=11 Phases=3 kV=12.66 kW=45  kVAR=30  Model=1 daily=LS_Comm
+New Load.Load12 Bus1=12 Phases=3 kV=12.66 kW=60  kVAR=35  Model=1 daily=LS_Comm
+New Load.Load13 Bus1=13 Phases=3 kV=12.66 kW=60  kVAR=35  Model=1 daily=LS_Comm
+New Load.Load14 Bus1=14 Phases=3 kV=12.66 kW=120 kVAR=80  Model=1 daily=LS_Comm
+New Load.Load15 Bus1=15 Phases=3 kV=12.66 kW=60  kVAR=10  Model=1 daily=LS_Comm
+New Load.Load16 Bus1=16 Phases=3 kV=12.66 kW=60  kVAR=20  Model=1 daily=LS_Comm
+New Load.Load17 Bus1=17 Phases=3 kV=12.66 kW=60  kVAR=20  Model=1 daily=LS_Comm
+New Load.Load18 Bus1=18 Phases=3 kV=12.66 kW=90  kVAR=40  Model=1 daily=LS_Comm
+
+! --- Industrial Buses (19 -> 25) ---
+New Load.Load19 Bus1=19 Phases=3 kV=12.66 kW=90  kVAR=40  Model=1 daily=LS_Ind
+New Load.Load20 Bus1=20 Phases=3 kV=12.66 kW=90  kVAR=40  Model=1 daily=LS_Ind
+New Load.Load21 Bus1=21 Phases=3 kV=12.66 kW=90  kVAR=40  Model=1 daily=LS_Ind
+New Load.Load22 Bus1=22 Phases=3 kV=12.66 kW=90  kVAR=40  Model=1 daily=LS_Ind
+New Load.Load23 Bus1=23 Phases=3 kV=12.66 kW=90  kVAR=50  Model=1 daily=LS_Ind
+New Load.Load24 Bus1=24 Phases=3 kV=12.66 kW=420 kVAR=200 Model=1 daily=LS_Ind
+New Load.Load25 Bus1=25 Phases=3 kV=12.66 kW=420 kVAR=200 Model=1 daily=LS_Ind
+
+! --- Residential Buses (26 -> 33) ---
+New Load.Load26 Bus1=26 Phases=3 kV=12.66 kW=60  kVAR=25  Model=1 daily=LS_Res
+New Load.Load27 Bus1=27 Phases=3 kV=12.66 kW=60  kVAR=25  Model=1 daily=LS_Res
+New Load.Load28 Bus1=28 Phases=3 kV=12.66 kW=60  kVAR=20  Model=1 daily=LS_Res
+New Load.Load29 Bus1=29 Phases=3 kV=12.66 kW=120 kVAR=70  Model=1 daily=LS_Res
+New Load.Load30 Bus1=30 Phases=3 kV=12.66 kW=200 kVAR=600 Model=1 daily=LS_Res
+New Load.Load31 Bus1=31 Phases=3 kV=12.66 kW=150 kVAR=70  Model=1 daily=LS_Res
+New Load.Load32 Bus1=32 Phases=3 kV=12.66 kW=210 kVAR=100 Model=1 daily=LS_Res
+New Load.Load33 Bus1=33 Phases=3 kV=12.66 kW=60  kVAR=40  Model=1 daily=LS_Res
+
+! =========================================================================
+! 3.1. C?U HÌNH S?N CÓ C?A LU?I ENHANCED IEEE 33-BUS (Gi?i t? 3 di?m do th?c t?)
+! Ðua Reg 13 t? 1500 xu?ng 1394 (1393.52) và Reg 14 t? 860 xu?ng 850 (849.55)
+! =========================================================================
+New Capacitor.Comp18 Bus1=18 Phases=3 kV=12.66 kVAR=160
+New Capacitor.Comp33 Bus1=33 Phases=3 kV=12.66 kVAR=225
+
+New Generator.BaseDG18 Bus1=18 Phases=3 kV=12.66 kW=195 PF=0.98 Model=1 daily=LS_Comm
+New Generator.BaseDG22 Bus1=22 Phases=3 kV=12.66 kW=195 PF=0.98 Model=1 daily=LS_Ind
+New Generator.BaseDG25 Bus1=25 Phases=3 kV=12.66 kW=345 PF=0.98 Model=1 daily=LS_Ind
+New Generator.BaseDG33 Bus1=33 Phases=3 kV=12.66 kW=285 PF=0.98 Model=1 daily=LS_Res
+
+! =========================================================================
+! 4. Ð?NG H? ÐO Ð?M T?N TH?T 24 GI? (ENERGY METER)
+! =========================================================================
+New EnergyMeter.MainMeter Element=Line.L1 Terminal=1
+
+! =========================================================================
+! 5. CH?N K?CH B?N CH?Y (B? D?U "!" ? K?CH B?N MU?N KI?M TRA)
+! =========================================================================
+
+! -------------------------------------------------------------------------
+! --- CASE 2.1: 3 EVCS t?i Bus 2, 3, 19 (B?ng 8: Ploss=1415.58, Qloss=861.17) ---
+! -------------------------------------------------------------------------
+!New Load.EVCS_2  Bus1=2  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+!New Load.EVCS_3  Bus1=3  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+!New Load.EVCS_19 Bus1=19 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+
+! -------------------------------------------------------------------------
+! --- CASE 2.2: 6 EVCS t?i Bus 2, 3, 4, 19, 20, 22 (B?ng 8: Ploss=1469.15, Qloss=896.70) ---
+! -------------------------------------------------------------------------
+!New Load.EVCS_2  Bus1=2  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+!New Load.EVCS_3  Bus1=3  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+!New Load.EVCS_4  Bus1=4  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+!New Load.EVCS_19 Bus1=19 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+!New Load.EVCS_20 Bus1=20 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+!New Load.EVCS_22 Bus1=22 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+
+! -------------------------------------------------------------------------
+! --- KH?I 9 EVCS DÙNG CHUNG CHO CASE 2.3, CASE 3.x VÀ CASE 4.x ---
+! (B? d?u "!" ? 9 dòng này khi ch?y Case 2.3, Case 3.x ho?c Case 4.x)
+! B?ng 8 Case 2.3: Ploss=1570.46, Qloss=963.03, Sloss=1842.22
+! -------------------------------------------------------------------------
+New Load.EVCS_2  Bus1=2  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+New Load.EVCS_3  Bus1=3  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+New Load.EVCS_4  Bus1=4  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+New Load.EVCS_5  Bus1=5  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+New Load.EVCS_6  Bus1=6  Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Comm
+New Load.EVCS_19 Bus1=19 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+New Load.EVCS_20 Bus1=20 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+New Load.EVCS_21 Bus1=21 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+New Load.EVCS_22 Bus1=22 Phases=3 kV=12.66 kW=250 PF=0.95 Model=1 daily=EV_Ind
+
+! -------------------------------------------------------------------------
+! --- CASE 3.1: 9 EVCS (m? ? trên) + 2 WTDG (700kW) t?i Bus 11, 13 ---
+! B?ng 9: Ploss=1420.13, Qloss=861.91, Sloss=1661.22
+! -------------------------------------------------------------------------
+!New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+
+! -------------------------------------------------------------------------
+! --- CASE 3.2: 9 EVCS (m? ? trên) + 7 WTDG (200kW) t?i 10,11,12,13,14,29,30 ---
+! B?ng 9: Ploss=1423.49, Qloss=865.38, Sloss=1665.90
+! -------------------------------------------------------------------------
+!New Generator.WTDG_10 Bus1=10 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_12 Bus1=12 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_14 Bus1=14 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_29 Bus1=29 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_30 Bus1=30 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+
+! -------------------------------------------------------------------------
+! --- CASE 3.3: 9 EVCS (m? ? trên) + 14 WTDG (100kW) t?i 8,9,11,12,13,14,15,26,28,29,30,31,32,33 ---
+! B?ng 9: Ploss=1424.27, Qloss=868.10, Sloss=1667.98
+! -------------------------------------------------------------------------
+!New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_9  Bus1=9  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_12 Bus1=12 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_14 Bus1=14 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_15 Bus1=15 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_26 Bus1=26 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_28 Bus1=28 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_29 Bus1=29 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_30 Bus1=30 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_31 Bus1=31 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_32 Bus1=32 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_33 Bus1=33 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+
+! -------------------------------------------------------------------------
+! --- CASE 4.1.1: 9 EVCS + 2 (WTDG 700kW + BESS 210kW, 12D-12C) t?i Bus 8, 10 ---
+! B?ng 10: Ploss=1458.85, Qloss=889.67, Sloss=1708.73
+! -------------------------------------------------------------------------
+!New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_10 Bus1=10 Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.BESS_8  Bus1=8  Phases=3 kV=12.66 kW=210 PF=0.95 Model=1 daily=BESS_12D_12C
+!New Generator.BESS_10 Bus1=10 Phases=3 kV=12.66 kW=210 PF=0.95 Model=1 daily=BESS_12D_12C
+
+! -------------------------------------------------------------------------
+! --- CASE 4.1.2: 9 EVCS + 2 (WTDG 700kW + BESS 210kW, 12C-12D) t?i Bus 12, 29 ---
+! B?ng 10: Ploss=1429.74, Qloss=870.89, Sloss=1674.10
+! -------------------------------------------------------------------------
+!New Generator.WTDG_12 Bus1=12 Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_29 Bus1=29 Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.BESS_12 Bus1=12 Phases=3 kV=12.66 kW=210 PF=0.95 Model=1 daily=BESS_12C_12D
+!New Generator.BESS_29 Bus1=29 Phases=3 kV=12.66 kW=210 PF=0.95 Model=1 daily=BESS_12C_12D
+
+! -------------------------------------------------------------------------
+! --- CASE 4.1.3: 9 EVCS + 2 (WTDG 700kW + BESS 210kW, 4D-4C-3X) t?i Bus 11, 29 ---
+! B?ng 10: Ploss=1434.52, Qloss=875.32, Sloss=1680.49
+! -------------------------------------------------------------------------
+!New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.WTDG_29 Bus1=29 Phases=3 kV=12.66 kW=700 PF=0.95 Model=1 daily=Wind_PU
+!New Generator.BESS_11 Bus1=11 Phases=3 kV=12.66 kW=210 PF=0.95 Model=1 daily=BESS_4D_4C_3X
+!New Generator.BESS_29 Bus1=29 Phases=3 kV=12.66 kW=210 PF=0.95 Model=1 daily=BESS_4D_4C_3X
+
+! =========================================================================
+! --- KH?I CASE 4.2: 7 V? TRÍ (M?i v? trí: WTDG = 200 kW, BESS = 60 kW) ---
+! =========================================================================
+
+! -------------------------------------------------------------------------
+! --- CASE 4.2.1 (12D-12C): Ð?t t?i Bus 8, 9, 10, 11, 13, 27, 30 ---
+! K?t qu? B?ng 10: Ploss = 1460.86 kW | Qloss = 892.15 kVAR | Sloss = 1711.74 kVA
+! -------------------------------------------------------------------------
+/*
+New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_9  Bus1=9  Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_10 Bus1=10 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_27 Bus1=27 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_30 Bus1=30 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.BESS_8  Bus1=8  Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_9  Bus1=9  Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_10 Bus1=10 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_11 Bus1=11 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_13 Bus1=13 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_27 Bus1=27 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_30 Bus1=30 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12D_12C
+*/
+
+! -------------------------------------------------------------------------
+! --- CASE 4.2.2 (12C-12D): Ð?t t?i Bus 8, 9, 11, 13, 14, 26, 33 ---
+! K?t qu? B?ng 10: Ploss = 1430.35 kW | Qloss = 872.04 kVAR | Sloss = 1675.22 kVA
+! -------------------------------------------------------------------------
+
+/*
+New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_9  Bus1=9  Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_14 Bus1=14 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_26 Bus1=26 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_33 Bus1=33 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.BESS_8  Bus1=8  Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_9  Bus1=9  Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_11 Bus1=11 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_13 Bus1=13 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_14 Bus1=14 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_26 Bus1=26 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_33 Bus1=33 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_12C_12D
+*/
+
+! -------------------------------------------------------------------------
+! --- CASE 4.2.3 (4D-4C-3X): Ð?t t?i Bus 8, 10, 12, 13, 14, 29, 30 ---
+! K?t qu? B?ng 10: Ploss = 1435.00 kW | Qloss = 874.64 kVAR | Sloss = 1680.54 kVA
+! -------------------------------------------------------------------------
+/*
+New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_10 Bus1=10 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_12 Bus1=12 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_14 Bus1=14 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_29 Bus1=29 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_30 Bus1=30 Phases=3 kV=12.66 kW=200 PF=0.95 Model=1 daily=Wind_PU
+New Generator.BESS_8  Bus1=8  Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_10 Bus1=10 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_12 Bus1=12 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_13 Bus1=13 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_14 Bus1=14 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_29 Bus1=29 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_30 Bus1=30 Phases=3 kV=12.66 kW=60  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+*/
+
+! =========================================================================
+! --- KH?I CASE 4.3: 14 V? TRÍ (M?i v? trí: WTDG = 100 kW, BESS = 30 kW) ---
+! =========================================================================
+
+! -------------------------------------------------------------------------
+! --- CASE 4.3.1 (12D-12C): Ð?t t?i Bus 8, 9, 11, 12, 13, 14, 24, 25, 26, 27, 28, 29, 30, 31 ---
+! K?t qu? B?ng 10: Ploss = 1465.08 kW | Qloss = 896.19 kVAR | Sloss = 1717.45 kVA
+! -------------------------------------------------------------------------
+/*
+New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_9  Bus1=9  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_12 Bus1=12 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_14 Bus1=14 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_24 Bus1=24 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_25 Bus1=25 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_26 Bus1=26 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_27 Bus1=27 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_28 Bus1=28 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_29 Bus1=29 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_30 Bus1=30 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_31 Bus1=31 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.BESS_8  Bus1=8  Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_9  Bus1=9  Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_11 Bus1=11 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_12 Bus1=12 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_13 Bus1=13 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_14 Bus1=14 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_24 Bus1=24 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_25 Bus1=25 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_26 Bus1=26 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_27 Bus1=27 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_28 Bus1=28 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_29 Bus1=29 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_30 Bus1=30 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+New Generator.BESS_31 Bus1=31 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12D_12C
+*/
+
+! -------------------------------------------------------------------------
+! --- CASE 4.3.2 (12C-12D): Ð?t t?i Bus 8, 9, 10, 11, 12, 13, 14, 26, 27, 28, 30, 31, 32, 33 ---
+! K?t qu? B?ng 10: Ploss = 1433.10 kW | Qloss = 874.60 kVAR | Sloss = 1678.90 kVA
+! -------------------------------------------------------------------------
+/*
+New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_9  Bus1=9  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_10 Bus1=10 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_12 Bus1=12 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_14 Bus1=14 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_26 Bus1=26 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_27 Bus1=27 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_28 Bus1=28 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_30 Bus1=30 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_31 Bus1=31 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_32 Bus1=32 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_33 Bus1=33 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.BESS_8  Bus1=8  Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_9  Bus1=9  Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_10 Bus1=10 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_11 Bus1=11 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_12 Bus1=12 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_13 Bus1=13 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_14 Bus1=14 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_26 Bus1=26 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_27 Bus1=27 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_28 Bus1=28 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_30 Bus1=30 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_31 Bus1=31 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_32 Bus1=32 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+New Generator.BESS_33 Bus1=33 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_12C_12D
+*/
+
+! -------------------------------------------------------------------------
+! --- CASE 4.3.3 (4D-4C-3X): Ð?t t?i Bus 8, 9, 10, 11, 12, 13, 14, 16, 25, 26, 28, 29, 30, 31 ---
+! K?t qu? B?ng 10: Ploss = 1438.17 kW | Qloss = 877.70 kVAR | Sloss = 1684.84 kVA
+! -------------------------------------------------------------------------
+
+New Generator.WTDG_8  Bus1=8  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_9  Bus1=9  Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_10 Bus1=10 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_11 Bus1=11 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_12 Bus1=12 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_13 Bus1=13 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_14 Bus1=14 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_16 Bus1=16 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_25 Bus1=25 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_26 Bus1=26 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_28 Bus1=28 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_29 Bus1=29 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_30 Bus1=30 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.WTDG_31 Bus1=31 Phases=3 kV=12.66 kW=100 PF=0.95 Model=1 daily=Wind_PU
+New Generator.BESS_8  Bus1=8  Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_9  Bus1=9  Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_10 Bus1=10 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_11 Bus1=11 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_12 Bus1=12 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_13 Bus1=13 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_14 Bus1=14 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_16 Bus1=16 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_25 Bus1=25 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_26 Bus1=26 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_28 Bus1=28 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_29 Bus1=29 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_30 Bus1=30 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+New Generator.BESS_31 Bus1=31 Phases=3 kV=12.66 kW=30  PF=0.95 Model=1 daily=BESS_4D_4C_3X
+
+
+
+! =========================================================================
+! 6. GI?I BÀI TOÁN 24 GI? VÀ V? Ð? TH? (ÐÃ FIX L?I ÐU?NG D?N TI?NG VI?T)
+! =========================================================================
+! Chuy?n thu m?c xu?t d? li?u d? th? sang ? D:\DSS_Out (nh? t?o thu m?c D:\DSS_Out tru?c)
+Set Datapath=D:\DSS_Out
+
+! Khai báo các Monitor theo dõi 24h TRU?C khi Solve
+New Monitor.Mon_Sub_PQ Element=Line.L1  Terminal=1 Mode=1 ppolar=no
+New Monitor.Mon_V18    Element=Line.L17 Terminal=2 Mode=0
+New Monitor.Mon_EV2    Element=Load.EVCS_2 Terminal=1 Mode=1 ppolar=no
+
+Set VoltageBases=[12.66]
+CalcVoltageBases
+
+! Gi?i chu?i 24 gi?
+Set mode=daily stepsize=1h number=24
+Solve
+
+! 1. Xem báo cáo t?n th?t 24h và Ði?n áp 33 nút
+Show Meters
+Show Voltage LN Nodes
+
+! 2. V? d? th? biên d?ng s?t áp d?c 33 nút (Voltage Profile)
+Plot Profile Phases=All
+
+! 3. V? d? th? công su?t tr?m bi?n áp và tr?m s?c EVCS_2 trong 24h
+Plot Monitor Object=Mon_Sub_PQ Channels=(1 2)
+Plot Monitor Object=Mon_EV2    Channels=(1)
+Plot Monitor Object=Mon_V18    Channels=(1 3 5)
+
